@@ -81,3 +81,18 @@ of drag moves every string up or down a semitone, keeping the intervals (or use 
 The bar shows the shift and the resulting tuning; ⟲ resets it and 💾 saves it as a custom tuning.
 While the mode is on, dragging transposes instead of scrolling; turn it off to scroll again
 (the transposition stays applied).
+
+## Releasing a new version
+
+Each release has two numbers in `pyproject.toml`:
+
+- `version` (e.g. 0.2.0) is what users see. Raise the **patch** (0.2.**1**) for fixes,
+  the **minor** (0.**3**.0) for new features, and the **major** (**1**.0.0) for the first Play Store release.
+- `build_number` is Android's internal version code. Add 1 every release, and never reuse or lower it.
+
+Steps:
+1. Bump both numbers in `pyproject.toml`, commit and push (or ask Claude to).
+2. Pull in GitHub Desktop, then build: `flet build apk`
+3. Install and test the APK on your phone.
+4. On GitHub: **Releases → Draft a new release**, create tag `vX.Y.Z` on `main`, describe the changes,
+   attach the APK (renamed e.g. `banjo_tuning-0.2.0.apk`), and publish.
