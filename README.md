@@ -1,7 +1,8 @@
 # Banjo Tuning Helper
 
 Shows the name of every note on a 5-string banjo neck (open to fret 25) for the tuning you pick.
-Tap any note to highlight everywhere else it appears.
+Tap notes to highlight them everywhere they appear, light up a scale or chord, and hear any note
+at its real pitch.
 
 ## Project layout
 
@@ -9,16 +10,18 @@ Tap any note to highlight everywhere else it appears.
 banjo_tuning/
   pyproject.toml        project settings (used later to build the Android app)
   src/
-    main.py             the screen: dropdown, switch, fretboard grid
+    main.py             the screens: settings, fretboard (vertical or sideways), Manage tunings, About
     fretboard.py        the music logic (note names, which note is at which fret)
+    theory.py           scales, chords and interval names
     tunings.py          the built-in (default) tunings
     tuning_store.py     saves/loads your custom tunings and which tunings show in the menu
+    settings_store.py   remembers your settings between launches
+    version.py          version shown on the About screen (must match pyproject.toml)
     assets/tones/       one short plucked-string sound per pitch (n48.wav = MIDI note 48 = C3)
   tools/
     make_tones.py       regenerates the sound files; tweak its settings to change the sound
-  tests/
-    test_fretboard.py   checks the music logic
-    test_tuning_store.py checks saving/loading tunings
+  tests/                checks for the logic modules (GitHub runs them on every push)
+  .github/workflows/    the GitHub "Tests" job
 ```
 
 ## One-time setup (Anaconda Prompt)
@@ -50,7 +53,8 @@ flet run src/main.py
 
 A phone-shaped window opens. Leave it open: **saving a change to a .py file reloads the app automatically.**
 
-Check the music logic: `python tests/test_fretboard.py`
+Check the logic: run any file in `tests/`, e.g. `python tests/test_fretboard.py`.
+GitHub also runs all of them after every push: see the ✓ / ✗ next to each commit, or the **Actions** tab.
 
 ## How the 5th string is shown
 
@@ -58,11 +62,32 @@ The short 5th string usually begins at the 5th fret (you can change this in the 
 Its open note appears in the row for the fret where it starts, and it goes up a semitone per fret from there,
 matching how banjo tab numbers the 5th string.
 
-## Tones
+## Sound
 
-Turn on **Tones** and tapping a note plays it at the pitch it really sounds on the banjo
-(Open G is g4 D3 G3 B3 D4; a retuned string uses the nearest pitch with its new note name,
-so Drop C's 4th string is C3). Sound needs the `flet-audio` package. Without it the switch is greyed out.
+- **Tap a string name** (above the neck, or left of it when sideways) to hear that open string,
+  and tap **♪** to strum all five. Handy for tuning by ear. These work whether or not note sounds are on.
+- Turn on **Play notes when tapped** to hear each note you tap, at the pitch it really sounds on the banjo
+  (Open G is g4 D3 G3 B3 D4; a retuned string uses the nearest pitch with its new note name,
+  so Drop C's 4th string is C3).
+- **Play on: Long-press** makes a normal tap only highlight; press and hold to hear the note.
+- **Ring length** (Short / Medium / Full) and **volume** are in the Sound section of the settings.
+
+Sound needs the `flet-audio` package. Without it the sound options are greyed out.
+
+## Highlighting
+
+- **Tap notes** to highlight them everywhere on the neck, each in its own colour (good for building a chord shape).
+  Tap again to remove one, or ✕ in the top bar to clear them all.
+- **Highlight: Scale / Chord** with a **Root** lights up every note of, say, G Mixolydian or D7:
+  the root in red, the other notes in gold.
+- **Show: Intervals from root** replaces note names with their role relative to the root (1, ♭3, 5, ♭7...).
+
+## Other settings
+
+- **Neck: Sideways** lays the neck horizontally with the 1st string on top, like tab; scroll left and right.
+  Best with the phone turned to landscape.
+- Your settings are remembered between launches (in `settings.json` next to `tunings.json`).
+- **About** (bottom of the settings) shows the version and build number.
 
 ## Capo and custom tunings
 
@@ -91,7 +116,8 @@ Each release has two numbers in `pyproject.toml`:
 - `build_number` is Android's internal version code. Add 1 every release, and never reuse or lower it.
 
 Steps:
-1. Bump both numbers in `pyproject.toml`, commit and push (or ask Claude to).
+1. Bump both numbers in `pyproject.toml` **and** `src/version.py` (the About screen reads that one;
+   the tests fail if they don't match), commit and push (or ask Claude to).
 2. Pull in GitHub Desktop, then build: `flet build apk`
 3. Install and test the APK on your phone.
 4. On GitHub: **Releases → Draft a new release**, create tag `vX.Y.Z` on `main`, describe the changes,
