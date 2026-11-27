@@ -34,6 +34,12 @@ pip install "flet[all]" flet-audio
 The environment lives in your Anaconda folder, not in Google Drive, which is what you want.
 Google Drive would try to sync thousands of library files.
 
+## Getting the latest changes
+
+Changes are committed to GitHub (github.com/BanzaiOtis/banjo_tuning). Before running or building,
+open **GitHub Desktop** and click **Fetch origin**, then **Pull origin**. If you edit files yourself,
+commit and push them before asking for more changes, so the two copies don't conflict.
+
 ## Every time you work on it
 
 ```
