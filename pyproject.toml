@@ -1,13 +1,13 @@
 [project]
 name = "banjotuning"           # with org below, makes the app ID com.otis.banjotuning
-version = "0.2.0"              # shown to users: MAJOR.MINOR.PATCH
+version = "0.3.0"              # shown to users: MAJOR.MINOR.PATCH
 description = "See every note on a 5-string banjo neck in alternate tunings."
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = ["flet>=1.0", "flet-audio"]
 
 [tool.flet]
-build_number = 2                 # Android versionCode: add 1 for every release you hand out
+build_number = 3                 # Android versionCode: add 1 for every release you hand out
 org = "com.otis"
 product = "Banjo Tuning Helper"
 

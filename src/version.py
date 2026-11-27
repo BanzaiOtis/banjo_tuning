@@ -3,5 +3,5 @@
 Keep these in step with `version` and `build_number` in pyproject.toml
 (tests/test_version.py checks they match, and so does GitHub on every push).
 """
-VERSION = "0.2.0"
-BUILD_NUMBER = 2
+VERSION = "0.3.0"
+BUILD_NUMBER = 3
