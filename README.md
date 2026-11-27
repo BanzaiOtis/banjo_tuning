@@ -51,10 +51,10 @@ cd /d D:\dev\banjo_tuning
 flet run src/main.py
 ```
 
+A phone-shaped window opens. Leave it open: **saving a change to a .py file reloads the app automatically.**
+
 To preview on your phone instead, run `flet run --android src/main.py` and scan the QR code with the
 Flet app (phone and PC on the same Wi-Fi).
-
-A phone-shaped window opens. Leave it open: **saving a change to a .py file reloads the app automatically.**
 
 Check the logic: run any file in `tests/`, e.g. `python tests/test_fretboard.py`.
 GitHub also runs all of them after every push: see the ✓ / ✗ next to each commit, or the **Actions** tab.
