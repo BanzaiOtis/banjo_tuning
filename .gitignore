@@ -1,0 +1,18 @@
+# Build output (huge, and recreated by `flet build`)
+build/
+apks/
+*.apk
+*.aab
+
+# Python caches
+__pycache__/
+*.pyc
+
+# Flet's local data during `flet run` (includes your test custom tunings)
+.flet/
+
+# Editor / OS clutter
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
